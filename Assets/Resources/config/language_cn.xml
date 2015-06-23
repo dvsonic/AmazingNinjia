@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language appid="1002324229">
+	<score>当前积分</score>
+	<bestscore>最高积分</bestscore>
+	<replay>重玩</replay>
+	<quit>退出</quit>
+  <end>游戏结束!</end>
+  <share>分享</share>
+  <record>新记录</record>
+  <start>开始</start>
+  <guide>点击左边屏幕跳跃
+点击右边屏幕攻击</guide>
+</language>
