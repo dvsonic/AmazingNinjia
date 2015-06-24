@@ -55,7 +55,7 @@ public class ResultController : MonoBehaviour {
         }
         tfScoreBest.text = GameData.getLanguage().SearchForChildByTag("bestscore").Text+"\n"+best.ToString();
 
-        SocialManager.GetInstance().ReportScore("10010", GameData.score);
+        SocialManager.GetInstance().ReportScore("20003", GameData.score);
 
 	}
 	
@@ -98,12 +98,7 @@ public class ResultController : MonoBehaviour {
     public void ToDiscuss()
     {
 #if UNITY_IPHONE
-        string APP_ID = GameData.getLanguage().Attribute("appid");
-        Debug.Log(APP_ID);
-        var url = string.Format(
-            "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id={0}",
-            APP_ID);
-        Application.OpenURL(url);
+        Application.OpenURL("https://itunes.apple.com/app/id1011674889?mt=8");
 #endif
     }
 }

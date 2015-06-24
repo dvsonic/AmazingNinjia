@@ -12,7 +12,7 @@ PlayerSettings:
   targetResolution: 0
   accelerometerFrequency: 60
   companyName: Lanhang
-  productName: AmazingNinjia
+  productName: "Jumping Ninja\nJumping Ninja\r\n"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   defaultScreenWidth: 1024
@@ -68,7 +68,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  iPhoneBundleIdentifier: com.u.t3
+  iPhoneBundleIdentifier: com.lv1.ninja
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   productGUID: 0086036c33305704294abb2f69fd081d
@@ -129,26 +129,40 @@ PlayerSettings:
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: e64d9ea537d31de4d90e344e7afb3517, type: 3}
+    - m_Icon: {fileID: 2800000, guid: 6d8010436bce62e4c8307ec8668e9ee6, type: 3}
       m_Size: 128
   - m_BuildTarget: iPhone
     m_Icons:
-    - m_Icon: {fileID: 0}
+    - m_Icon: {fileID: 2800000, guid: f1ea312c26a034d4bb3efbb4dfbc0205, type: 3}
       m_Size: 180
-    - m_Icon: {fileID: 0}
+    - m_Icon: {fileID: 2800000, guid: 9190c87e0f0b7d24cbe76543bbf111ee, type: 3}
       m_Size: 152
-    - m_Icon: {fileID: 0}
+    - m_Icon: {fileID: 2800000, guid: 323aac0c9399d424e949f4c297c73bae, type: 3}
       m_Size: 144
-    - m_Icon: {fileID: 2800000, guid: edc71b390383a0744917f50562a6da17, type: 3}
+    - m_Icon: {fileID: 2800000, guid: 8a3e8c82c6813204d8a63919807c80bf, type: 3}
       m_Size: 120
-    - m_Icon: {fileID: 2800000, guid: cad6fb8d3a797a54f8dcfe5d05ff2ed3, type: 3}
+    - m_Icon: {fileID: 2800000, guid: a32a93e5759a7f74eb4ec19b0693c101, type: 3}
       m_Size: 114
-    - m_Icon: {fileID: 2800000, guid: 0bcf5da007bd51d48b3aa5e818eeeefd, type: 3}
+    - m_Icon: {fileID: 2800000, guid: 9ebef2dc5116d1f4ab1f30135733cba8, type: 3}
       m_Size: 76
-    - m_Icon: {fileID: 2800000, guid: aeeba58c26779924b93cfeb6e88844c4, type: 3}
+    - m_Icon: {fileID: 2800000, guid: f28ce1e7652d76a4896b07cd5d245cf8, type: 3}
       m_Size: 72
-    - m_Icon: {fileID: 2800000, guid: bd2269d3ce43b69449c26e6b213c0223, type: 3}
+    - m_Icon: {fileID: 2800000, guid: 2e2f3aeb22b49e6479eb9e04be81e2ec, type: 3}
       m_Size: 57
+  - m_BuildTarget: Android
+    m_Icons:
+    - m_Icon: {fileID: 2800000, guid: b9ec04537df86f34aae94af1e6925114, type: 3}
+      m_Size: 192
+    - m_Icon: {fileID: 2800000, guid: 323aac0c9399d424e949f4c297c73bae, type: 3}
+      m_Size: 144
+    - m_Icon: {fileID: 2800000, guid: 6d8010436bce62e4c8307ec8668e9ee6, type: 3}
+      m_Size: 96
+    - m_Icon: {fileID: 2800000, guid: f28ce1e7652d76a4896b07cd5d245cf8, type: 3}
+      m_Size: 72
+    - m_Icon: {fileID: 2800000, guid: 744ec945f038c0844ad21abaf2277eee, type: 3}
+      m_Size: 48
+    - m_Icon: {fileID: 2800000, guid: a5d80830694021c41b51b961d222be2b, type: 3}
+      m_Size: 36
   m_BuildTargetBatching: []
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}

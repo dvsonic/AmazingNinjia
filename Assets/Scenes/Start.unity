@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f5250a2a0366a346a4cac9db7c08555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adConfig: http://123.196.114.176/ot/thief/sys_advertise.txt
+  adConfig: http://123.196.114.176/ot/ninjia/sys_advertise.txt
   platform: 3
 --- !u!114 &394402466
 MonoBehaviour:

@@ -85,7 +85,10 @@ public class ThiefController : MonoBehaviour {
             {
                 if (state == NinjiaState.ON_GROUND || state == NinjiaState.FALL_INIT)
                 {
-                    SetState(NinjiaState.ATTACK);
+                    if (lastAttackTime > 0 && Time.time - lastAttackTime < 2)
+                        SetState(NinjiaState.SECOND_ATTACK);
+                    else
+                        SetState(NinjiaState.ATTACK);
                     if (!_isStart)
                         GameStart();
                 }
@@ -115,7 +118,6 @@ public class ThiefController : MonoBehaviour {
         {
             bf.CreatBlock();
         }
-        UpdateCurrentTarget();
     }
 
     public void SetState(NinjiaState state)
@@ -129,7 +131,7 @@ public class ThiefController : MonoBehaviour {
                 GetComponent<Animator>().SetInteger("attackType",1);
                 break;
             case NinjiaState.SECOND_ATTACK:
-                lastAttackTime = Time.time;
+                lastAttackTime = 0;
                 GetComponent<Animator>().SetInteger("attackType", 2);
                 break;
             case NinjiaState.FIRST_JUMP:
@@ -222,7 +224,6 @@ public class ThiefController : MonoBehaviour {
         }
         if(coll.gameObject.tag == "BottomBlock")
         {
-            UpdateCurrentTarget();
             Vector2 collNormal = coll.contacts[0].normal;
             if (Mathf.Abs(collNormal.x-0.0f)<0.1f && Mathf.Abs(collNormal.y-1.0f)<0.1f )
             {
@@ -300,6 +301,7 @@ public class ThiefController : MonoBehaviour {
     public GameObject target;
     public void OnAttack()
     {
+        UpdateCurrentTarget();
         if (target && (target.transform.position.x - transform.position.x) < attackDistant)
         {
             Debug.Log("OnAttack:" + target.tag);
@@ -308,10 +310,6 @@ public class ThiefController : MonoBehaviour {
             {
                 SetState(NinjiaState.LOSE);
                 StartCoroutine(GameEnd());
-            }
-            else
-            {
-                UpdateCurrentTarget();
             }
         }
     }

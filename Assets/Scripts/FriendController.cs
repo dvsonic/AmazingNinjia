@@ -21,13 +21,13 @@ public class FriendController : MonoBehaviour {
             {
                 GameData.score += 20;
                 
-                if (GameData.hp < GameData.MAX_HP)
+                /*if (GameData.hp < GameData.MAX_HP)
                 {
                     GameData.hp++;
                     EventManager.getInstance().trigger(Event_Name.REFRESH_STAR);
                     ninjia.SendMessage("SetHeadState", 3);
                 }
-                else
+                else*/
                     ninjia.SendMessage("SetHeadState", 2);
                 escaped = true;
             }
