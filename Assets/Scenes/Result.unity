@@ -485,15 +485,13 @@ GameObject:
   - 92: {fileID: 593435600}
   - 124: {fileID: 593435599}
   - 81: {fileID: 593435598}
-  - 114: {fileID: 593435603}
-  - 114: {fileID: 593435604}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &593435598
 AudioListener:
   m_ObjectHideFlags: 0
@@ -559,28 +557,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &593435603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 593435597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 195bce50d9faf9649af54f5e3e0774db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &593435604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 593435597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00cc442df4f0f68488def84698dab65f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &607180345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1320935176
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -93,7 +93,7 @@ public class SocialManager : System.Object
 
     public void ReportScore(string leaderboardId, long score)
     {
-        //if (Social.localUser.authenticated)
+        if (Social.localUser.authenticated)
         {
             Social.ReportScore(score, leaderboardId, HandleScoreReported);
         }
@@ -106,7 +106,7 @@ public class SocialManager : System.Object
 
     public void ShowLeaderboard()
     {
-        //if (Social.localUser.authenticated)
+        if (Social.localUser.authenticated)
         {
             Social.ShowLeaderboardUI();
         }

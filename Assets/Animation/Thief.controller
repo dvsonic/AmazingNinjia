@@ -38,6 +38,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: Reset
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
@@ -147,7 +153,7 @@ Transition:
   m_TransitionOffset: 0
   m_Conditions:
   - m_ConditionMode: 5
-    m_ConditionEvent: 
+    m_ConditionEvent: isJump
     m_EventTreshold: 0
     m_ExitTime: 1
   m_Atomic: 1
@@ -270,6 +276,26 @@ Transition:
     m_ConditionEvent: isDead
     m_EventTreshold: 0
     m_ExitTime: 1
+  m_Atomic: 1
+  m_Solo: 0
+  m_Mute: 0
+  m_CanTransitionToSelf: 0
+--- !u!1101 &110173628
+Transition:
+  serializedVersion: 2
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_SrcState: {fileID: 0}
+  m_DstState: {fileID: 110262068}
+  m_TransitionDuration: .100000001
+  m_TransitionOffset: 0
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Reset
+    m_EventTreshold: 0
+    m_ExitTime: .899999976
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
@@ -439,15 +465,11 @@ StateMachine:
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
-      first: {fileID: 110271348}
-      second:
-      - {fileID: 110129896}
-      - {fileID: 110122074}
-    data:
       first: {fileID: 0}
       second:
       - {fileID: 110167538}
       - {fileID: 110121638}
+      - {fileID: 110173628}
     data:
       first: {fileID: 110262068}
       second:
@@ -475,6 +497,11 @@ StateMachine:
     data:
       first: {fileID: 110283872}
       second: []
+    data:
+      first: {fileID: 110271348}
+      second:
+      - {fileID: 110129896}
+      - {fileID: 110122074}
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: 504, y: -36, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

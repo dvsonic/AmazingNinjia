@@ -11,14 +11,36 @@ public class MainUIController : MonoBehaviour
     public Text tfCountDown;
     public Text tfGuide;
     public GameObject star;
+
+    public GameObject startCanvas;
+    public GameObject mainCanvas;
+    public GameObject endCanvas;
     // Use this for initialization
+    void Awake()
+    {
+        GameScene.init(startCanvas, mainCanvas, endCanvas);
+        if (tfGuide)
+            tfGuide.text = GameData.getLanguage("guide");
+    }
     void Start()
     {
         GameData.score = 0;
         GameData.hp = GameData.MAX_HP;
         star.SendMessage("Init");
-        if(tfGuide)
-            tfGuide.text = GameData.getLanguage().SearchForChildByTag("guide").Text;
+
+    }
+
+    public GameObject ninjia;
+    public GameObject factory;
+    void Reset()
+    {
+        Debug.Log("Reset");
+        Start();
+        if (ninjia)
+            ninjia.SendMessage("Reset");
+        if (factory)
+            factory.SendMessage("Reset");
+        Camera.main.transform.position = new Vector3(0, 0, -10);
     }
 
     // Update is called once per frame
@@ -64,15 +86,17 @@ public class MainUIController : MonoBehaviour
     {
         Time.timeScale = 1;
         PausePanel.SetActive(false);
-        Canvas canvas = GameObject.FindObjectOfType(typeof(Canvas)) as Canvas;
-        if (canvas)
-            canvas.SendMessage("DestroyAD", SendMessageOptions.DontRequireReceiver);
         GameData.score = 0;
-        Application.LoadLevel("Start");
+        GameScene.GotoScene(1);
     }
 
+    /*void OnEnable()
+    {
+        gameObject.SendMessage("SetBannerVisible", true, SendMessageOptions.DontRequireReceiver);
+    }
 
-
-
-
+    void OnDisable()
+    {
+        gameObject.GetComponent<ADMob>().SetBannerVisible(false);
+    }*/
 }

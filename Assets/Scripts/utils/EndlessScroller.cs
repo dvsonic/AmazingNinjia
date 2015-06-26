@@ -9,7 +9,12 @@ public class EndlessScroller : MonoBehaviour {
     private Transform rightItem;
     private float size;
     private bool isStop;
+    private Vector3 _initPositon;
 	// Use this for initialization
+    void Awake()
+    {
+        _initPositon = transform.position;
+    }
 	void Start () {
         itemList = new List<Transform>();
         size = transform.GetChild(1).position.x - transform.GetChild(0).position.x;
@@ -55,8 +60,20 @@ public class EndlessScroller : MonoBehaviour {
         if (edge)
         {
             edge.gameObject.SetActive(true);
-            float edgeExtends = edge.gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;
             edge.gameObject.transform.position = rightItem.position + new Vector3(size,0,0);
+        }
+    }
+
+    public void Reset()
+    {
+        isStop = false;
+        if (edge)
+            edge.gameObject.SetActive(false);
+        transform.position = _initPositon;
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            itemList[i].localPosition = new Vector3(size * i, 0, 0);
+            rightItem = itemList[i];
         }
     }
 }

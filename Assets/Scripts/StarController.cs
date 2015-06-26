@@ -9,7 +9,6 @@ public class StarController : MonoBehaviour {
     private int maxValue;
 	// Use this for initialization
 	void Start () {
-
 	}
 
     void Init()
@@ -45,8 +44,11 @@ public class StarController : MonoBehaviour {
         }
         else if (value < curValue && value >= 0)//减血
         {
-            transform.GetChild(value).gameObject.GetComponent<Animator>().SetBool("isSub", true);
-            transform.GetChild(value).gameObject.GetComponent<Animator>().SetBool("isAdd", false);
+            for (int i = value; i < curValue; i++)
+            {
+                transform.GetChild(i).gameObject.GetComponent<Animator>().SetBool("isSub", true);
+                transform.GetChild(i).gameObject.GetComponent<Animator>().SetBool("isAdd", false);
+            }
             curValue = value;
         }
     }

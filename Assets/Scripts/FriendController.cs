@@ -52,4 +52,9 @@ public class FriendController : MonoBehaviour {
         GetComponent<Animator>().SetBool("isCrash", true);
         speed = 0;
     }
+
+    public void OnDead()
+    {
+        Destroy(gameObject);
+    }
 }

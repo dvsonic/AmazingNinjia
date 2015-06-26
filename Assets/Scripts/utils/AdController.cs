@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Text;
 
 public class AdController : MonoBehaviour
 {
@@ -30,19 +31,15 @@ public class AdController : MonoBehaviour
         }
     }
 
-    private List<ADConfig> adList;
     IEnumerator LoadConfig()
     {
-        adList = new List<ADConfig>();
-        Debug.Log("Start:" + Time.time);
         WWW w = new WWW(adConfig);
         yield return w;
-        Debug.Log("Finish:" + Time.time);
-        string config = w.text;
         if (string.IsNullOrEmpty(w.text))
         {
             Debug.Log("load config error");
-            string adconfig = Resources.Load("config/adconfig").ToString();
+            TextAsset data = Resources.Load("config/adconfig") as TextAsset;
+            string adconfig = Encoding.UTF8.GetString(data.bytes);
             PhaseConfig(adconfig);
         }
         else

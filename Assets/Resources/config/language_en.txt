@@ -1,0 +1,4 @@
+score	Score
+bestscore	HighScore
+record	Record
+guide	Click on the left side of the screen to jump<br>Click on the right side of the screen to hit

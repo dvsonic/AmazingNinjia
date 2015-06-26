@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BlockFactory : MonoBehaviour {
 
@@ -13,8 +14,17 @@ public class BlockFactory : MonoBehaviour {
     public float maxXOffset = 0.5f;
     public Transform lastBlock;
     public GameObject[] obstacleList;
+
+    private List<GameObject> createdObject;
+
+    private GameObject _initBlock;
+    void Awake()
+    {
+        _initBlock = lastBlock.gameObject;
+    }
     private static BlockFactory _instant;
 	void Start () {
+        createdObject = new List<GameObject>();
         _instant = this;
 	}
 
@@ -33,23 +43,22 @@ public class BlockFactory : MonoBehaviour {
     }
 
 
-    private int blockNum;
     public void CreatBlock()
     {
-        blockNum++;
+        GameData.blockNum ++;
         
         Object prefab;
-        if (blockNum % 12 < 4 && blockNum>10)
+        if (GameData.blockNum % 12 < 4 && GameData.blockNum > 10)
             prefab = specialBlock;
         else
             prefab = blockList[Random.Range(0, blockList.Length)];
 
         GameObject obj = Instantiate(prefab) as GameObject;
+        createdObject.Add(obj);
 
         float offsetX = Random.Range(minXOffset,maxXOffset);
         float offsetY = Random.Range(minYOffset,maxYOffset);
         float oldWidth = GetBlockWidth(lastBlock.gameObject);
-        float newWidth = GetBlockWidth(obj);
         obj.transform.position = new Vector3(lastBlock.transform.position.x + oldWidth + offsetX, offsetY);
         lastBlock = obj.transform;
 
@@ -63,7 +72,7 @@ public class BlockFactory : MonoBehaviour {
                 {
                     percent -= 0.1f;
                     Object prefab2 = obstacleList[Random.Range(0, obstacleList.Length)];
-                    Instantiate(prefab2, child.position, child.rotation);
+                    createdObject.Add(Instantiate(prefab2, child.position, child.rotation) as GameObject);
                 }
                 else
                 {
@@ -79,6 +88,17 @@ public class BlockFactory : MonoBehaviour {
     private float GetBlockWidth(GameObject block)
     {
         return block.GetComponent<BoxCollider2D>().size.x;
+    }
+
+    public void Reset()
+    {
+        for (int i = 0; i < createdObject.Count; i++)
+        {
+            Destroy(createdObject[i]);
+        }
+        createdObject.Clear();
+        GameData.blockNum = 0;
+        lastBlock = _initBlock.transform;
     }
 
 }

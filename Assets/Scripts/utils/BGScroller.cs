@@ -49,4 +49,10 @@ public class BGScroller : MonoBehaviour {
             right.gameObject.SetActive(false);
         }
     }
+
+    public void Reset()
+    {
+        _isStop = false;
+        Start();
+    }
 }

@@ -11,7 +11,7 @@ GameObject:
   - 61: {fileID: 6114148}
   m_Layer: 0
   m_Name: Roof3
-  m_TagString: BottomBlock
+  m_TagString: Dangerous
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

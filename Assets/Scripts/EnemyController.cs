@@ -72,5 +72,10 @@ public class EnemyController : MonoBehaviour
         ninjia.SendMessage("SetHeadState", 1);
     }
 
+    public void OnDead()
+    {
+        Destroy(gameObject);
+    }
+
 
 }

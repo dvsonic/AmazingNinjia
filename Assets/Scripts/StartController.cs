@@ -12,10 +12,6 @@ public class StartController : MonoBehaviour {
     public Slider slider;
     void Awake()
     {
-        if (tfStart)
-        {
-            tfStart.text = GameData.getLanguage().SearchForChildByTag("start").Text;
-        }
     }
     void Start () {
         SocialManager.GetInstance().Start();
@@ -43,11 +39,18 @@ public class StartController : MonoBehaviour {
     private AsyncOperation async;
     public void StartGame()
     {
-       async = Application.LoadLevelAsync("Main");
-       if (slider)
-       {
-           slider.gameObject.SetActive(true);
-           slider.value = 0;
-       }
+        Debug.Log("StartGame" + Application.loadedLevelName);
+        if (Application.loadedLevel == 1)//已经加载过主场景
+            GameScene.GotoScene(2);
+        else
+        {
+            async = Application.LoadLevelAsync("Main");
+            if (slider)
+            {
+                slider.gameObject.SetActive(true);
+                slider.value = 0;
+            }
+        }
+
     }
 }

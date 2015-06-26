@@ -21,12 +21,36 @@ public class ThiefController : MonoBehaviour {
     public float attackDistant;
 
     private float lastAttackTime;
+
 	void Start () {
         state = NinjiaState.FALL_INIT;
         _isStart = false;
         _hitList = new List<GameObject>();
         if (run)
             run.Play();
+    }
+
+    public void Reset()
+    {
+        Start();
+        rigidbody2D.isKinematic = false;
+        transform.position = new Vector3(-1.67f, -0.68f);
+        GetComponent<TargetState>().IsDead = false;
+        GetComponent<Animator>().SetBool("isDead", false);
+        GetComponent<Animator>().SetBool("isJump", false);
+        GetComponent<Animator>().SetBool("isCrash", false);
+        GetComponent<Animator>().SetBool("isLose", false);
+        GetComponent<Animator>().SetInteger("attackType", 0);  
+        GetComponent<Animator>().SetTrigger("Reset");
+        endlessBlock.SendMessage("Reset");
+        ResetBG();
+        if (guide)
+        {
+            GameObject.Destroy(guide);
+            guide = null;
+        }
+        if (hurtFlash)
+            hurtFlash.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -122,7 +146,6 @@ public class ThiefController : MonoBehaviour {
 
     public void SetState(NinjiaState state)
     {
-        Debug.Log("SetState:" + state);
         this.state = state;
         switch (state)
         {
@@ -170,18 +193,22 @@ public class ThiefController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (state != NinjiaState.FALL_INIT && state != NinjiaState.DEAD && state != NinjiaState.CRASH && state != NinjiaState.LOSE)
-        {
-            gameObject.transform.position += new Vector3(speed * Time.deltaTime, 0);
-            updateBG();
-        }
+        if (!_isStart)
+            endlessBlock.transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
         else
         {
-            if(cloud)
-                cloud.position += new Vector3(-1 * Time.deltaTime, 0);
+            if (state != NinjiaState.FALL_INIT && state != NinjiaState.DEAD && state != NinjiaState.CRASH && state != NinjiaState.LOSE)
+            {
+                gameObject.transform.position += new Vector3(speed * Time.deltaTime, 0);
+                updateBG();
+            }
+            else
+            {
+                if (cloud)
+                    cloud.position += new Vector3(-1 * Time.deltaTime, 0);
+            }
         }
-        if(!_isStart)
-            endlessBlock.transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
+
     }
     public Transform bgFar;
     public Transform bgNear;
@@ -197,6 +224,30 @@ public class ThiefController : MonoBehaviour {
             bgFront.position -= new Vector3(0.6f * speed * Time.deltaTime, 0);
         if(cloud)
             cloud.position += new Vector3((speed-1) * Time.deltaTime, 0);
+    }
+
+    private void ResetBG()
+    {
+        if (bgFar)
+        {
+            bgFar.position = new Vector3(0, bgFar.position.y, bgFar.position.z);
+            bgFar.SendMessage("Reset");
+        }
+        if (bgNear)
+        {
+            bgNear.position = new Vector3(0, bgNear.position.y, bgNear.position.z);
+            bgNear.SendMessage("Reset");
+        }
+        if (bgFront)
+        {
+            bgFront.position = new Vector3(0, bgFront.position.y, bgFront.position.z);
+            bgFront.SendMessage("Reset");
+        }
+        if (cloud)
+        {
+            cloud.position = new Vector3(0, cloud.position.y, cloud.position.z);
+            cloud.SendMessage("Reset");
+        }
     }
 
     private bool _isStart;
@@ -218,15 +269,18 @@ public class ThiefController : MonoBehaviour {
     {
         if (!_isStart)
             return;
+        if (state == NinjiaState.LOSE || state == NinjiaState.CRASH || state == NinjiaState.DEAD)
+            return;
         if(endlessBlock != null && coll.transform.parent == endlessBlock.transform)
         {
             SetState(NinjiaState.ON_GROUND);
         }
-        if(coll.gameObject.tag == "BottomBlock")
+        if(coll.gameObject.tag == "BottomBlock" || coll.gameObject.tag == "Dangerous")
         {
             Vector2 collNormal = coll.contacts[0].normal;
             if (Mathf.Abs(collNormal.x-0.0f)<0.1f && Mathf.Abs(collNormal.y-1.0f)<0.1f )
             {
+                AdjustSpeed(coll.gameObject);
                 SetState(NinjiaState.ON_GROUND);
                 if (_hitList.IndexOf(coll.gameObject) < 0)
                 {
@@ -245,6 +299,12 @@ public class ThiefController : MonoBehaviour {
             }
 
         }
+    }
+
+    private void AdjustSpeed(GameObject obj)
+    {
+        if (_hitList.Count>0 && _hitList[_hitList.Count - 1].tag == "Dangerous" && obj.tag != "Dangerous")
+            speed *= 1.1f;
     }
 
      void OnCollisionExit2D(Collision2D coll)
@@ -366,9 +426,9 @@ public class ThiefController : MonoBehaviour {
 
     public void OnDead()
     {
+        rigidbody2D.isKinematic = true;
         GetComponent<TargetState>().IsDead = true;
         SetState(NinjiaState.DEAD);
-        speed = 0;
         Camera.main.GetComponent<CameraShake>().Shake();
         StartCoroutine(GameEnd());
     }
@@ -376,17 +436,15 @@ public class ThiefController : MonoBehaviour {
     public void OnCrash()
     {
         SetState(NinjiaState.CRASH);
-        speed = 0;
         Camera.main.GetComponent<CameraShake>().Shake();
         StartCoroutine(GameEnd());
     }
 
     private IEnumerator GameEnd()
     {
+        GameData.hp = 0;
+        EventManager.getInstance().trigger(Event_Name.REFRESH_STAR);
         yield return new WaitForSeconds(1.0f);
-        Canvas canvas = GameObject.FindObjectOfType(typeof(Canvas)) as Canvas;
-        if (canvas)
-            canvas.SendMessage("DestroyAD", SendMessageOptions.DontRequireReceiver);
-        Application.LoadLevel("Result");
+        GameScene.GotoScene(3);
     }
 }

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DestoryController : MonoBehaviour {
 
 	// Use this for initialization
+    public List<GameObject> ignoreDestroy;
     private Vector3 offset;
 	void Start () {
         offset = Camera.main.transform.position - transform.position;
@@ -19,17 +21,21 @@ public class DestoryController : MonoBehaviour {
         if (coll.gameObject.tag == "hero")
         {
             Camera.main.GetComponent<CameraShake>().Shake();
-            Canvas canvas = GameObject.FindObjectOfType(typeof(Canvas)) as Canvas;
-            if (canvas)
-                canvas.SendMessage("DestroyAD", SendMessageOptions.DontRequireReceiver);
-            Application.LoadLevel("Result");
+            coll.gameObject.SendMessage("OnDead", SendMessageOptions.DontRequireReceiver);
+            GameScene.GotoScene(3);
         }
         else
         {
             if (coll.gameObject.transform.parent)
-                Destroy(coll.gameObject.transform.parent.gameObject);
+            {
+                if (ignoreDestroy.IndexOf(coll.gameObject.transform.parent.gameObject) < 0)
+                    Destroy(coll.gameObject.transform.parent.gameObject);
+            }
             else
-                Destroy(coll.gameObject);
+            {
+                if(ignoreDestroy.IndexOf(coll.gameObject)<0)
+                    Destroy(coll.gameObject);
+            }
         }
     }
 }

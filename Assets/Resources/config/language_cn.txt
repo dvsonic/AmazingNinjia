@@ -1,0 +1,4 @@
+score	当前积分
+bestscore	最高积分
+record	新记录
+guide	点击左边屏幕跳跃<br>点击右边屏幕攻击
