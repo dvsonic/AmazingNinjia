@@ -18,7 +18,7 @@ public class ADMob : MonoBehaviour
     {
         if (AdController.admob_show)
         {
-            if (type == ADType.BANNER)
+            if (type == ADType.BANNER && AdController.bannerInventor == AdController.ADInventor.admob)
             {
                 if (banner == null)
                 {
@@ -34,7 +34,7 @@ public class ADMob : MonoBehaviour
                         .Build());
                 }
             }
-            else
+            else if(AdController.interstitialInventor == AdController.ADInventor.admob)
             {
                 if (interstitial == null)
                 {
@@ -54,6 +54,11 @@ public class ADMob : MonoBehaviour
             }
         }
 
+    }
+
+    public void RestartAdmob()
+    {
+        Start();
     }
 
     void OnEnable()

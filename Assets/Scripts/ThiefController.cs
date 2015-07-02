@@ -18,6 +18,9 @@ public class ThiefController : MonoBehaviour {
     public AudioSource jump;
     public AudioSource dead;
     public AudioSource bonus;
+    public AudioSource attack;
+    public AudioSource hit;
+    public AudioSource crash;
     public float attackDistant;
 
     private float lastAttackTime;
@@ -152,10 +155,14 @@ public class ThiefController : MonoBehaviour {
             case NinjiaState.ATTACK:
                 lastAttackTime = Time.time;
                 GetComponent<Animator>().SetInteger("attackType",1);
+                if (attack)
+                    attack.Play();
                 break;
             case NinjiaState.SECOND_ATTACK:
                 lastAttackTime = 0;
                 GetComponent<Animator>().SetInteger("attackType", 2);
+                if (attack)
+                    attack.Play();
                 break;
             case NinjiaState.FIRST_JUMP:
             case NinjiaState.SECOND_JUMP:
@@ -364,7 +371,8 @@ public class ThiefController : MonoBehaviour {
         UpdateCurrentTarget();
         if (target && (target.transform.position.x - transform.position.x) < attackDistant)
         {
-            Debug.Log("OnAttack:" + target.tag);
+            if (hit)
+                hit.Play();
             target.SendMessage("OnHit");
             if (target.tag == "Friend")
             {
@@ -435,6 +443,8 @@ public class ThiefController : MonoBehaviour {
 
     public void OnCrash()
     {
+        if (crash)
+            crash.Play();
         SetState(NinjiaState.CRASH);
         Camera.main.GetComponent<CameraShake>().Shake();
         StartCoroutine(GameEnd());

@@ -33,9 +33,13 @@ public class ResultController : MonoBehaviour {
 #endif
     }
 	void Start () {
-        tfScore.text = GameData.getLanguage("score")+"\n"+GameData.score;
+
+	}
+
+    void OnEnable()
+    {
+        tfScore.text = GameData.getLanguage("score") + "\n" + GameData.score;
         int best = PlayerPrefs.GetInt(BEST_SCORE);
-        tfScoreBest.text = GameData.getLanguage("bestscore") + "\n" + best; 
         if (GameData.score >= best)
         {
             PlayerPrefs.SetInt(BEST_SCORE, GameData.score);
@@ -46,11 +50,11 @@ public class ResultController : MonoBehaviour {
         {
             Record.SetActive(false);
         }
+        tfScoreBest.text = GameData.getLanguage("bestscore") + "\n" + best;
 #if !UNITY_EDITOR
         SocialManager.GetInstance().ReportScore("20003", GameData.score);
 #endif
-
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

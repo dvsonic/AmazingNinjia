@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     public ThiefController ninjia;
     private bool canHit;
     private bool canKnock;
+    public AudioSource attack;
+    public AudioSource die;
 	// Use this for initialization
 	void Start () {
         canHit = canKnock = true;
@@ -48,14 +50,20 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyState.HIT:
                 GetComponent<Animator>().SetBool("isHit", true);
+                if (attack)
+                    attack.Play();
                 break;
             case EnemyState.KNOCK:
                 GetComponent<Animator>().SetBool("isKnock", true);
                 transform.localScale = new Vector3(-1, 1, 1);
+                if (attack)
+                    attack.Play();
                 break;
             case EnemyState.DEAD:
                 GetComponent<Animator>().SetBool("isDead", true);
                 GetComponent<TargetState>().IsDead = true;
+                if (die)
+                    die.Play();
                 break;
         }
     }
