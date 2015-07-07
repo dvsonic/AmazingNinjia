@@ -22,16 +22,11 @@ extern "C"
     
     BOOL loadInterstitial()
     {
-		if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-			return [[Interstitial getInstance]ShowInterstitial];
-		else
-			return false;
+		return false;
     }
 	
 	void hideInterstitial()
 	{
-		if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-			[[Interstitial getInstance]HideInterstitial];
 	}
     
 }
